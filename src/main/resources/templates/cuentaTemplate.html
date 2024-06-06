@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuenta</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS for Futuristic Design -->
+    <style>
+        body {
+            background-color: darkblue;
+            color: #ffffff;
+            font-family: 'Roboto', sans-serif;
+        }
+       .container {
+            margin-top: 50px;
+        }
+       .card {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 15px;
+        }
+       .card-header,.card-footer {
+            background: none;
+            border: none;
+        }
+       .btn-custom {
+            background-color: #1e90ff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+        }
+       .btn-custom:hover {
+            background-color: #0d6efd;
+        }
+       .form-control {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+        }
+        label {
+            color: #ccc;
+        }
+        h1, h2, h3 {
+            text-align: center;
+        }
+       .error-message {
+            color: #ff4c4c;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p>Bienvenido :  <span th:text="${username}"></span></p>
+        <div class="card">
+            <div class="card-header">
+                <h2> Cuenta de : [[${vistaCuenta.nombreCliente}]]</h2>
+                <h2> Saldo actual : [[${vistaCuenta.saldoActual}]]</h2>
+            </div>
+            <div class="card-body">
+                <h3>Depositar Fondos</h3>
+                <form th:action="@{/cuenta/depositar}" method="post">
+                    <div class="form-group">
+                        <label for="montoDepositar">Monto:</label>
+                        <input type="number" name="montoDepositar" id="monto" class="form-control" required/>
+                    </div>
+                    <button type="submit" class="btn btn-custom btn-block">Depositar</button>
+                </form>
+                
+                <h3>Retirar Fondos</h3>
+                <form th:action="@{/cuenta/retirar}" method="post">
+                    <div class="form-group">
+                        <label for="montoRetiro">Monto:</label>
+                        <input type="number" name="montoRetiro" id="montoRetiro" class="form-control" required/>
+                    </div>
+                    <button type="submit" class="btn btn-custom btn-block">Retirar</button>
+                </form>
+                
+                <!-- Add a new form for transferir -->
+                <h3>Transferir Fondos</h3>
+                <form th:action="@{/cuenta/transferir}" method="post">
+                    <div class="form-group">
+                        <label for="idClienteDestino">ID del cliente destino:</label>
+                        <input type="number" name="idClienteDestino" id="idClienteDestino" class="form-control" required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="montoTransferir">Monto:</label>
+                        <input type="number" name="montoTransferir" id="montoTransferir" class="form-control" required/>
+                    </div>
+                    <button type="submit" class="btn btn-custom btn-block">Transferir</button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Div solo para administradores-->
+        <div sec:authorize="hasRole('ROLE_ADMIN')">
+            <h2>Contenido administrativo</h2>
+            <p>solo para administradores</p>
+        </div>
+        
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
