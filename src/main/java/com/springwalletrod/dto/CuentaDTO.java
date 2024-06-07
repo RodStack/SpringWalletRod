@@ -5,6 +5,11 @@ public class CuentaDTO {
 	private Double saldoActual;
 	
 	
+	public CuentaDTO(Integer numeroCuenta, Double saldoActual) {
+		super();
+		this.numeroCuenta = numeroCuenta;
+		this.saldoActual = saldoActual;
+	}
 	public Integer getNumeroCuenta() {
 		return numeroCuenta;
 	}

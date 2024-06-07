@@ -62,10 +62,10 @@ public class CuentaService {
 		Cliente cliente2 = new Cliente();
 		cliente2.setUsername("Luciana");
 		cliente2.setPassword(passwordEncoder.encode("admin"));
-		cliente.setCuenta(cuenta2);
+		cliente2.setCuenta(cuenta2);
 		userRoles.add(userRol);
 		cliente2.setRoles(userRoles);
-		clienteRepository.save(cliente);
+		clienteRepository.save(cliente2);
 		cliente2.setCuenta(cuenta);
 		cuentaRepository.save(cuenta2);
 	}

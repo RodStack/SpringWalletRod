@@ -79,4 +79,8 @@ public class ClienteService {
 	    return clienteRepository.findByUsername(username);
 	}
 	
+	public List<Transaccion> obtenerTodasTransacciones(){
+		return transaccionRepository.findAll();
+	}
+	
 }

@@ -8,48 +8,51 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS for Futuristic Design -->
     <style>
-        body {
-            background-color: darkblue;
-            color: #ffffff;
-            font-family: 'Roboto', sans-serif;
-        }
-       .container {
-            margin-top: 50px;
-        }
-       .card {
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            border-radius: 15px;
-        }
-       .card-header,.card-footer {
-            background: none;
-            border: none;
-        }
-       .btn-custom {
-            background-color: #1e90ff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-        }
-       .btn-custom:hover {
-            background-color: #0d6efd;
-        }
-       .form-control {
-            background-color: #333;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-        }
-        label {
-            color: #ccc;
-        }
-        h1, h2, h3 {
-            text-align: center;
-        }
-       .error-message {
-            color: #ff4c4c;
-            text-align: center;
-        }
+       body {
+    background-color: #8a2be2; /* lila */
+    color: #ffffff;
+    font-family: 'Roboto', sans-serif;
+}
+.container {
+    margin-top: 50px;
+}
+.card {
+    background: rgba(0, 191, 255, 0.1); /* azul claro */
+    border: none;
+    border-radius: 15px;
+}
+.card-header,
+.card-footer {
+    background: none;
+    border: none;
+}
+.btn-custom {
+    background-color: #800080; /* púrpura */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+}
+.btn-custom:hover {
+    background-color: #483d8b; /* azul oscuro */
+}
+.form-control {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+}
+label {
+    color: #ccc;
+}
+h1,
+h2,
+h3 {
+    text-align: center;
+}
+.error-message {
+    color: #ff4c4c;
+    text-align: center;
+}
     </style>
 </head>
 <body>
@@ -57,50 +60,76 @@
         <p>Bienvenido :  <span th:text="${username}"></span></p>
         <div class="card">
             <div class="card-header">
-                <h2> Cuenta de : [[${vistaCuenta.nombreCliente}]]</h2>
-                <h2> Saldo actual : [[${vistaCuenta.saldoActual}]]</h2>
+                <h2> Cuenta de : [[${vistaCuenta.SaldoActual}]]</h2>
             </div>
-            <div class="card-body">
-                <h3>Depositar Fondos</h3>
-                <form th:action="@{/cuenta/depositar}" method="post">
-                    <div class="form-group">
-                        <label for="montoDepositar">Monto:</label>
-                        <input type="number" name="montoDepositar" id="monto" class="form-control" required/>
-                    </div>
-                    <button type="submit" class="btn btn-custom btn-block">Depositar</button>
-                </form>
-                
-                <h3>Retirar Fondos</h3>
-                <form th:action="@{/cuenta/retirar}" method="post">
-                    <div class="form-group">
-                        <label for="montoRetiro">Monto:</label>
-                        <input type="number" name="montoRetiro" id="montoRetiro" class="form-control" required/>
-                    </div>
-                    <button type="submit" class="btn btn-custom btn-block">Retirar</button>
-                </form>
-                
-                <!-- Add a new form for transferir -->
-                <h3>Transferir Fondos</h3>
-                <form th:action="@{/cuenta/transferir}" method="post">
-                    <div class="form-group">
-                        <label for="idClienteDestino">ID del cliente destino:</label>
-                        <input type="number" name="idClienteDestino" id="idClienteDestino" class="form-control" required/>
-                    </div>
-                    <div class="form-group">
-                        <label for="montoTransferir">Monto:</label>
-                        <input type="number" name="montoTransferir" id="montoTransferir" class="form-control" required/>
-                    </div>
-                    <button type="submit" class="btn btn-custom btn-block">Transferir</button>
-                </form>
-            </div>
+        <div class="card-body">
+				<h3>Depositar Fondos</h3>
+				<form th:action="@{/cuenta/depositar}" method="post">
+					<div class="form-group">
+						<label for="montoDepositar">Monto:</label>
+						<input type="number" name="montoDepositar" id="monto" class="form-control" required/>
+					</div>
+					<button type="submit" class="btn btn-custom btn-block">Depositar</button>
+				</form>
+				<br>
+				<h3>Retirar Fondos</h3>
+					<form th:action="@{/cuenta/retirar}" method="post">
+						<div class="form-group">
+							<label for="montoRetiro">Monto:</label>
+							<input type="number" name="montoRetiro" id="montoRetiro" class="form-control" required/>
+						</div>
+						<button type="submit" class="btn btn-custom btn-block">Retirar</button>
+					</form>
+					<br>
+					
+				<div class="container">
+        <!-- Other content... -->
+        <div class="card-body">
+            <h3>Transferir Fondos</h3>
+            <form th:action="@{/cuenta/transferir}" method="post">
+                <div class="form-group">
+                    <label for="idClienteDestino">ID del cliente destino:</label>
+                    <select name="idClienteDestino" id="idClienteDestino" class="form-control" required>
+                        <option value="" disabled selected>Selecciona un cliente</option>
+                        <option th:each="cliente : ${clientes}" 
+                                th:value="${cliente.id}" 
+                                th:text="${cliente.username}"></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="montoTransferir">Monto:</label>
+                    <input type="number" name="montoTransferir" id="montoTransferir" class="form-control" required />
+                </div>
+                <button type="submit" class="btn btn-custom btn-block">Transferir</button>
+            </form>
         </div>
-        
-        <!-- Div solo para administradores-->
-        <div sec:authorize="hasRole('ROLE_ADMIN')">
-            <h2>Contenido administrativo</h2>
-            <p>solo para administradores</p>
-        </div>
-        
+    </div>
+    <div class="container">
+        <h1>Lista de Transacciones</h1>
+        <br>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Tipo</th>
+                    <th>Monto</th>
+                    <th>Cuenta Origen</th>
+                    <th>Cuenta Destino</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="transaccion : ${transacciones}">
+                    <td th:text="${transaccion.fecha}"></td>
+                    <td th:text="${transaccion.tipo}"></td>
+                    <td th:text="${transaccion.monto}"></td>
+                    <td th:text="${transaccion.cuentaOrigen}"></td>
+                    <td th:text="${transaccion.cuentaDestino}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+			</div>
     </div>
 
     <!-- Bootstrap JS and dependencies -->
